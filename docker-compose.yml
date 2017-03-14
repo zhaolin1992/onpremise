@@ -19,13 +19,14 @@ services:
       SENTRY_POSTGRES_HOST: postgres
       SENTRY_EMAIL_HOST: smtp
     volumes:
-      - ./data/sentry:/var/lib/sentry/files
+      - /data/sentry/sentry:/var/lib/sentry/files
+      # - ./data/sentry:/var/lib/sentry/files
 
   smtp:
     image: tianon/exim4
 
   memcached:
-    image: memcached:1.4
+    image: memcached:latest
 
   redis:
     image: redis:3.2-alpine
@@ -33,8 +34,8 @@ services:
   postgres:
     image: postgres:9.5
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-
+      - /data/sentry/postgres/:/var/lib/postgresql/data
+      # - ./data/postgres:/var/lib/postgresql/data
   web:
     extends: base
     links:
